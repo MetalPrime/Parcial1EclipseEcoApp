@@ -30,12 +30,21 @@ public class TCPServer extends Thread{
 	    private Socket socket;
 	    private BufferedReader reader;
 	    private BufferedWriter writer;
+	    
+	    private OnMessageListener observer;
+
+	    public void SetObserver(OnMessageListener observer){
+	        this.observer = observer;
+	    }
 
 	    @Override
 	    public void run() {
 	        try {
+	        	System.out.println("Iniciando Conexión");
+	        	System.out.println("Esperando...");
 	            server = new ServerSocket(5000);
 	            socket = server.accept();
+	            System.out.println("Conexión del servidor establecida");
 	            InputStream is = socket.getInputStream();
 	            InputStreamReader isr = new InputStreamReader(is);
 	            reader = new BufferedReader(isr);
@@ -43,9 +52,13 @@ public class TCPServer extends Thread{
 	            OutputStream os = socket.getOutputStream();
 	            OutputStreamWriter osw = new OutputStreamWriter(os);
 	            writer = new BufferedWriter(osw);
+	            
+	            
 
 	            while (true){
 	            	String line = reader.readLine();
+	            	System.out.println("Recibido:"+" "+line);
+	            	observer.OnMessage(line);
 	            }
 
 	        } catch (IOException e) {
