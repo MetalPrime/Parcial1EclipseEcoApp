@@ -52,13 +52,13 @@ public class TCPServer extends Thread{
 	            OutputStream os = socket.getOutputStream();
 	            OutputStreamWriter osw = new OutputStreamWriter(os);
 	            writer = new BufferedWriter(osw);
-	            
-	            
+	               
 
 	            while (true){
+	            	System.out.println("Esperando Mensaje");
 	            	String line = reader.readLine();
 	            	System.out.println("Recibido:"+" "+line);
-	            	observer.OnMessage(line);
+	            	this.observer.OnMessage(line);
 	            }
 
 	        } catch (IOException e) {
@@ -70,7 +70,7 @@ public class TCPServer extends Thread{
 	        new Thread(
 	                () ->{
 	                    try {
-	                            writer.write(msg);
+	                            writer.write(msg+"\n");
 	                            writer.flush();
 	                    } catch (IOException e){
 	                        e.printStackTrace();

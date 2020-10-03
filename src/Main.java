@@ -34,6 +34,7 @@ public class Main extends PApplet implements OnMessageListener{
 	public void OnMessage(String msg) {
 		// TODO Auto-generated method stub
 		paintName = msg;
+		System.out.println("Mensaje Recibido"+msg);
 	}
 
 }
